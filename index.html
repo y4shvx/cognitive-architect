@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>NEURAL_ARCHITECT_v2.08</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>NEURAL_ARCHITECT_v2.09</title>
     <style>
         /* === ARCHITECT CORE CINEMATIC STYLING === */
         :root {
@@ -33,7 +33,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            /* CRITICAL FIX: Ensure mobile body can grow and scroll naturally */
             overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
             background-image: 
                 radial-gradient(rgba(0, 240, 255, 0.05) 1px, transparent 0),
                 radial-gradient(rgba(0, 240, 255, 0.02) 2px, transparent 0);
@@ -54,33 +57,70 @@
 
         #console-container {
             width: 100vw;
-            height: 100vh;
-            max-width: 1100px;
-            max-height: 850px;
             background: var(--panel-bg);
             border: 2px solid rgba(0, 240, 255, 0.15);
             box-shadow: var(--border-glow);
             display: flex;
             flex-direction: column;
-            overflow: hidden;
             position: relative;
             backdrop-filter: blur(8px);
         }
 
+        /* MOBILE & TABLET LAYOUT OVERHAUL */
         @media (max-width: 768px) {
             #console-container {
-                height: 100vh;
+                min-height: 100vh;
+                height: auto;
                 max-height: none;
                 border: none;
-                overflow-y: auto;
+                overflow: visible;
+            }
+            #workspace {
+                display: flex;
+                flex-direction: column;
+                overflow: visible;
+                height: auto;
+            }
+            #viewport-main {
+                overflow: visible;
+                height: auto;
+            }
+            #narrative-display {
+                overflow: visible;
+                height: auto;
             }
         }
 
+        /* DESKTOP RESTRICTIONS ONLY */
         @media (min-width: 769px) {
             #console-container {
                 width: 95vw;
                 height: 90vh;
+                max-width: 1100px;
+                max-height: 850px;
                 border-radius: 16px;
+                overflow: hidden;
+            }
+            #workspace {
+                display: flex;
+                flex-direction: row;
+                flex-grow: 1;
+                overflow: hidden;
+            }
+            #viewport-main {
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+                background: rgba(0, 0, 0, 0.2);
+                overflow: hidden;
+            }
+            #narrative-display {
+                flex-grow: 1;
+                padding: 40px;
+                overflow-y: auto;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
             }
         }
 
@@ -117,22 +157,6 @@
         }
         .matrix-node.active { background: var(--neon-blue); box-shadow: 0 0 8px var(--neon-blue); }
         .matrix-node.passed { background: rgba(0, 240, 255, 0.4); }
-
-        #workspace {
-            display: flex;
-            flex-grow: 1;
-            overflow: hidden;
-            flex-direction: column; 
-        }
-        @media (max-width: 768px) {
-            #workspace {
-                overflow-y: auto;
-                flex-grow: 1;
-            }
-        }
-        @media (min-width: 769px) {
-            #workspace { flex-direction: row; }
-        }
 
         #diagnostic-monitor {
             background: rgba(0, 0, 0, 0.4);
@@ -173,35 +197,9 @@
         #patient-card h3 { margin: 0; font-size: 0.95rem; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         #patient-card p { margin: 3px 0 0 0; font-size: 0.75rem; color: var(--neon-amber); }
 
-        #viewport-main {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            background: rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-        }
-        @media (max-width: 768px) {
-            #viewport-main {
-                overflow: visible;
-                flex-shrink: 0;
-            }
-        }
-
         #narrative-display {
-            flex-grow: 1;
-            padding: 20px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            padding: 25px 20px;
         }
-        @media (max-width: 768px) {
-            #narrative-display {
-                overflow-y: visible;
-                padding: 20px 15px;
-            }
-        }
-        @media (min-width: 769px) { #narrative-display { padding: 40px; } }
 
         #stage-banner {
             font-family: var(--font-mono);
@@ -218,8 +216,6 @@
             color: #f1f3f5;
             margin-bottom: 10px;
             white-space: normal;
-            
-            /* Strict Native Full-Word Wrapping Patches */
             word-wrap: break-word;
             overflow-wrap: break-word;
             word-break: normal;
@@ -236,12 +232,6 @@
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             flex-shrink: 0;
         }
-        @media (max-width: 768px) {
-            #action-grid {
-                padding: 15px;
-                background: rgba(0, 0, 0, 0.6);
-            }
-        }
         @media (min-width: 769px) { #action-grid { padding: 25px 40px; gap: 12px; } }
 
         .action-button {
@@ -255,8 +245,6 @@
             cursor: pointer;
             transition: all 0.2s ease;
             width: 100%;
-            
-            /* Clean Action Selection Text Box Boundaries */
             word-wrap: break-word;
             overflow-wrap: break-word;
             word-break: normal;
@@ -321,16 +309,16 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            height: 100%;
+            height: auto;
             padding: 25px;
             background: #040609;
             width: 100%;
-            overflow-y: auto;
+            overflow-y: visible;
         }
-        @media (max-width: 768px) {
+        @media (min-width: 769px) {
             #profile-dashboard {
-                padding: 15px;
-                flex-shrink: 0;
+                height: 100%;
+                overflow-y: auto;
             }
         }
         .report-header { font-family: var(--font-mono); color: var(--neon-amber); letter-spacing: 3px; font-size: 0.8rem; margin-bottom: 5px; text-align: center;}
@@ -381,6 +369,7 @@
             box-shadow: 0 5px 20px rgba(0, 240, 255, 0.3);
             cursor: pointer;
             text-align: center;
+            margin-bottom: 20px;
         }
 
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
@@ -401,7 +390,7 @@
     </div>
 
     <div id="system-header">
-        <div class="sys-title">// COGNITIVE_ARCHITECT_INTERFACE v2.08</div>
+        <div class="sys-title">// COGNITIVE_ARCHITECT_INTERFACE v2.09</div>
         <div class="sys-status">● NEURAL_LINK_STABLE</div>
     </div>
 
@@ -536,7 +525,7 @@
         "stage_2": {
             banner: "Stage 2: Hidden Sparks",
             action: () => updateProgressTrack(2),
-            text: "Rebellion vs. Security: You find a group of rebel thoughts attempting to steal 'Fire': repressed, painful memories holding the dark truth of the patient's past trauma. Authoritarian robotic 'Keepers' are protecting the vaults to keep things quiet. Who do you help?",
+            text: "Rebellion vs. Security: You find a group of rebel thoughts attempting to steal 'Fire: repressed, painful memories holding the dark truth of the patient's past trauma. Authoritarian robotic 'Keepers' are protecting the vaults to keep things quiet. Who do you help?",
             choices: [
                 { text: "Help the rebels steal the fire.", tracker: "S2_HelpRebels", outcome: "You distract the guards. The rebels smash open the vault! Terribly painful memories break loose, causing minor structural shockwaves across the map, but giving you direct access to the real truth.", target: "stage_3", logicEmpathy: 15, indivCollect: -20 },
                 { text: "Side with the mechanical Keepers.", tracker: "S2_HelpKeepers", outcome: "You help lock down the security perimeter. The rebels are defeated and the painful memories are sealed away deep underground. The environment is safe, but the hidden truth is buried deeper.", target: "stage_3", logicEmpathy: -15, indivCollect: 20 }
@@ -723,6 +712,9 @@
         
         ui.dashboard.style.display = 'flex';
 
+        // Direct layout scroll adjustment helper for touch targets
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
         const title = document.getElementById('profile-title');
         const desc = document.getElementById('profile-desc');
         const metricLE = document.getElementById('metric-le-text');
@@ -773,6 +765,7 @@
             method.innerText = "Adaptive Dialectics. Balancing structural environmental controls alongside targeted deep processing loops.";
         }
 
+        Metrics.choiceHistory += " // ARCHETYPE: " + title.innerText;
         dispatchDataTelemetry();
     }
 
