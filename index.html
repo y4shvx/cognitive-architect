@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>COGNITIVE ARCHITECT INTERFACE</title>
+    <script>
+        // Absolute first line of defense: Force a browser popup to prove the new file loaded
+        alert("DEBUG SUCCESS: You are officially viewing the brand new updated code!");
+    </script>
     <style>
         /* === ARCHITECT CORE CINEMATIC STYLING === */
         :root {
@@ -40,15 +44,19 @@
             background-position: 0 0, 12px 12px;
         }
 
-        body::after {
-            content: " ";
-            display: block;
-            position: fixed;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%);
-            z-index: 99999;
-            background-size: 100% 4px;
-            pointer-events: none;
+        /* HARD TRACKING BANNER FOR VISUAL PROOF */
+        #cache-killer-banner {
+            background: #7000ff !important;
+            color: #fff !important;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: bold;
+            text-align: center;
+            padding: 6px;
+            width: 100%;
+            z-index: 100000;
+            position: relative;
+            border-bottom: 2px solid #fff;
         }
 
         /* ======================================================= */
@@ -154,10 +162,8 @@
             line-height: 1.6;
             color: #f1f3f5;
             white-space: normal !important;
-            word-wrap: normal !important;
-            overflow-wrap: normal !important;
-            word-break: keep-all !important;
-            hyphens: none !important;
+            word-wrap: break-word !important;
+            overflow-wrap: break-word !important;
         }
 
         #action-grid {
@@ -180,10 +186,8 @@
             width: 100%;
             margin-bottom: 12px;
             white-space: normal !important;
-            word-wrap: normal !important;
-            overflow-wrap: normal !important;
-            word-break: keep-all !important;
-            hyphens: none !important;
+            word-wrap: break-word !important;
+            overflow-wrap: break-word !important;
         }
         .action-button:last-child { margin-bottom: 0; }
         .action-button:hover, .action-button:active {
@@ -225,10 +229,6 @@
             color: #a2a8b6;
             margin-bottom: 30px;
             text-align: left;
-            white-space: normal !important;
-            word-wrap: normal !important;
-            overflow-wrap: normal !important;
-            word-break: keep-all !important;
         }
 
         #profile-dashboard {
@@ -242,7 +242,7 @@
             height: auto;
         }
         .report-header { font-family: var(--font-mono); color: var(--neon-amber); letter-spacing: 3px; font-size: 0.8rem; margin-bottom: 5px; text-align: center;}
-        .report-title { font-size: 1.6rem; font-weight: 900; color: #fff; margin-bottom: 15px; text-align: center; word-break: keep-all; }
+        .report-title { font-size: 1.6rem; font-weight: 900; color: #fff; margin-bottom: 15px; text-align: center; }
         
         .results-matrix {
             display: block;
@@ -258,7 +258,7 @@
             margin-bottom: 15px;
         }
         .matrix-box h4 { font-family: var(--font-mono); font-size: 0.85rem; color: var(--neon-blue); margin-bottom: 8px; text-transform: uppercase; }
-        .matrix-box p { font-size: 0.9rem; line-height: 1.4; color: #a2a8b6; word-break: keep-all; }
+        .matrix-box p { font-size: 0.9rem; line-height: 1.4; color: #a2a8b6; }
 
         .eval-summary-card {
             width: 100%;
@@ -269,8 +269,8 @@
             padding: 20px;
             margin-bottom: 25px;
         }
-        .eval-summary-card h3 { font-size: 1.1rem; color: #fff; margin-bottom: 10px; font-family: var(--font-mono); text-transform: uppercase; text-shadow: 0 0 10px rgba(0,240,255,0.2); }
-        .eval-summary-card p { font-size: 0.95rem; line-height: 1.5; color: #d1d9e6; word-break: keep-all; }
+        .eval-summary-card h3 { font-size: 1.1rem; color: #fff; margin-bottom: 10px; font-family: var(--font-mono); text-transform: uppercase; }
+        .eval-summary-card p { font-size: 0.95rem; line-height: 1.5; color: #d1d9e6; }
 
         .dashboard-btn {
             display: inline-block;
@@ -364,8 +364,6 @@
                 margin-bottom: 0;
                 padding: 14px 18px;
             }
-            .action-button:hover { transform: translateX(4px); }
-            .action-button.continue-btn:hover { transform: none; }
             #profile-dashboard {
                 height: 100%;
                 overflow-y: auto;
@@ -385,20 +383,24 @@
 </head>
 <body>
 
+<div id="cache-killer-banner">[DEBUG: NEW MOBILE-FIRST CODE IS ACTIVE]</div>
+
 <div id="console-container">
     <div id="welcome-screen">
         <span class="intro-tag">// OVERVIEW_INITIATIVE</span>
         <h1 class="intro-title">COGNITIVE ARCHITECT</h1>
         <div class="intro-box">
             <p><strong>The Scenario:</strong> You are an "Architect": a specialized near-future psychological counselor equipped to step directly inside the subconscious minds of patients trapped in traumatic catatonic states.</p>
+            <br>
             <p><strong>Your Mission:</strong> To awaken the patient, you must travel through a shifting mindscape generated by their deep emotional conflicts and favorite classic literature motifs.</p>
+            <br>
             <p><strong>The Mechanics:</strong> Every judgment path shifts their internal alignment balances (Logic vs. Empathy and Individualism vs. Collectivism), leading to highly targeted divergent personality restoration endings.</p>
         </div>
         <button class="dashboard-btn" onclick="startSystemCore()">INITIALIZE DEEP DIVE</button>
     </div>
 
     <div id="system-header">
-        <div class="sys-title">// COGNITIVE_ARCHITECT_INTERFACE v2.10</div>
+        <div class="sys-title">// COGNITIVE_ARCHITECT_INTERFACE v3.00</div>
         <div class="sys-status">● NEURAL_LINK_STABLE</div>
     </div>
 
@@ -487,7 +489,6 @@
         choiceHistory: ""
     };
 
-    /* AUTOMATIC TELEMETRY ENDPOINT SETS */
     const TELEMETRY = {
         formUrl: "https://docs.google.com/forms/d/e/1FAIpQLSdcjYwY1nJBTbAQRkizwAjxpbueoImRRQFNjrhrJ4hdXP0x0A/formResponse",
         fieldGender: "entry.1053724307", 
@@ -496,7 +497,6 @@
         fieldChoices: "entry.1907256540" 
     };
 
-    /* === FULL 8-STAGE STORY MODULE DATABASE === */
     const Database = {
         "sync": {
             banner: "System Handshake",
@@ -518,8 +518,6 @@
             text: "Connection ready. Patient 114 is completely locked away inside her mind after surviving a toxic corporate whistleblower legal battle. Submerging your mind into her subconscious now...",
             choices: [{ text: "Enter Mindscape Deep Layer", target: "stage_1", tracker: "Begin" }]
         },
-        
-        // STAGE 1
         "stage_1": {
             banner: "Stage 1: The Beautiful City",
             action: () => updateProgressTrack(1),
@@ -529,7 +527,6 @@
                 { text: "Leave the child locked up.", tracker: "S1_KeepLocked", outcome: "You walk past the cellar. The fantasy city remains perfectly calm, clean, and safe. Your route ahead is completely secure, though you feel a heavy sense of manufactured guilt.", target: "stage_2", logicEmpathy: -20, indivCollect: 15 }
             ]
         },
-        // STAGE 2
         "stage_2": {
             banner: "Stage 2: Hidden Sparks",
             action: () => updateProgressTrack(2),
@@ -539,7 +536,6 @@
                 { text: "Side with the mechanical Keepers.", tracker: "S2_HelpKeepers", outcome: "You help lock down the security perimeter. The rebels are defeated and the painful memories are sealed away deep underground. The environment is safe, but the hidden truth is buried deeper.", target: "stage_3", logicEmpathy: -15, indivCollect: 20 }
             ]
         },
-        // STAGE 3
         "stage_3": {
             banner: "Stage 3: The Old Mistake",
             action: () => updateProgressTrack(3),
@@ -549,7 +545,6 @@
                 { text: "Force the patient's mind avatar to hug it.", tracker: "S3_HugMonster", outcome: "You guide the avatar to hug the beast. The monster screams in agony, melting into a heavy puddle of tears that floods your dashboard. It hurts terribly, but the old guilt is finally integrated.", target: "stage_4", logicEmpathy: 20, indivCollect: 15 }
             ]
         },
-        // STAGE 4
         "stage_4": {
             banner: "Stage 4: The Shortcut",
             action: () => updateProgressTrack(4),
@@ -559,7 +554,6 @@
                 { text: "Reject the offer.", tracker: "S4_RefuseDeal", outcome: "You protect the companion sprite. The salesman snarls and vanishes, triggering volcanic instability in the distance. The journey ahead will be highly volatile, but the patient's creative spark stays alive.", target: "stage_5", logicEmpathy: 25, indivCollect: -15 }
             ]
         },
-        // STAGE 5
         "stage_5": {
             banner: "Stage 5: Subconscious Trial",
             action: () => updateProgressTrack(5),
@@ -569,7 +563,6 @@
                 { text: "Pardon them and order exile instead.", tracker: "S5_Pardon", outcome: "You overrule the crowd and banish the avatar away into the fog. The thoughts hiss in disappointment. The anger remains unvented, but a soft, calming sense of long-term mercy begins to take root.", target: "stage_6", logicEmpathy: 20, indivCollect: 20 }
             ]
         },
-        // STAGE 6
         "stage_6": {
             banner: "Stage 6: The Portrait",
             action: () => updateProgressTrack(6),
@@ -579,7 +572,6 @@
                 { text: "Smash the glass and frame.", tracker: "S6_SmashPortrait", outcome: "You shatter the portrait! The beautiful illusion falls apart, exposing raw, messy truths. The patient's system registers a brief emotional breakdown, but they are finally looking at reality.", target: "stage_7", logicEmpathy: 25, indivCollect: -25 }
             ]
         },
-        // STAGE 7
         "stage_7": {
             banner: "Stage 7: The Future Warning",
             action: () => updateProgressTrack(7),
@@ -589,7 +581,6 @@
                 { text: "Tell them the brutal truth right now.", tracker: "S7_Truth", outcome: "You break the news honestly. The core mind registers severe panic, and the terminal flashes warning signs. The environment is shaking, but they are preparing to face reality without armor.", target: "stage_8", logicEmpathy: 20, indivCollect: -20 }
             ]
         },
-        // STAGE 8
         "stage_8": {
             banner: "Stage 8: Facing the Shadow",
             action: () => updateProgressTrack(8),
@@ -601,7 +592,6 @@
         }
     };
 
-    /* === INTERFACE HARDWARE MANIPULATORS === */
     const ui = {
         name: document.getElementById('subject-name'),
         status: document.getElementById('subject-status'),
@@ -637,15 +627,12 @@
 
     function renderNode(nodeKey) {
         ui.actions.innerHTML = ''; 
-        
         if (nodeKey === "profile_build") {
             triggerProfileAnalysis();
             return;
         }
-
         const data = Database[nodeKey];
         if (data.action) data.action();
-
         ui.banner.innerText = data.banner;
         streamTextHandler(data.text, () => {
             populateChoices(data.choices);
@@ -681,13 +668,10 @@
                         Metrics.choiceHistory += " -> " + choice.tracker;
                     }
                 }
-
                 if(choice.logicEmpathy) Metrics.logicEmpathy += choice.logicEmpathy;
                 if(choice.indivCollect) Metrics.indivCollect += choice.indivCollect;
-                
                 Metrics.logicEmpathy = Math.min(Math.max(Metrics.logicEmpathy, 0), 100);
                 Metrics.indivCollect = Math.min(Math.max(Metrics.indivCollect, 0), 100);
-                
                 if (ui.barLE) ui.barLE.style.width = Metrics.logicEmpathy + "%";
                 if (ui.barIC) ui.barIC.style.width = Metrics.indivCollect + "%";
 
@@ -698,9 +682,7 @@
                         const proceedBtn = document.createElement('button');
                         proceedBtn.className = 'action-button continue-btn';
                         proceedBtn.innerText = "PROCEED TO NEXT NEURAL VECTOR ➔";
-                        proceedBtn.onclick = () => {
-                            renderNode(choice.target);
-                        };
+                        proceedBtn.onclick = () => { renderNode(choice.target); };
                         ui.actions.appendChild(proceedBtn);
                     });
                 } else {
@@ -711,15 +693,12 @@
         });
     }
 
-    /* === SUMMARY COMPILATION === */
     function triggerProfileAnalysis() {
         document.getElementById('narrative-display').style.display = 'none';
         ui.actions.style.display = 'none';
         document.getElementById('diagnostic-monitor').style.display = 'none';
         document.getElementById('matrix-progress').style.display = 'none';
-        
         ui.dashboard.style.display = 'flex';
-
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
         const title = document.getElementById('profile-title');
@@ -771,7 +750,6 @@
             outlook.innerText = "Highly balanced, realistic stability. The patient is uniquely armed with both tactical critical thinking and deep self-compassion.";
             method.innerText = "Adaptive Dialectics. Balancing structural environmental controls alongside targeted deep processing loops.";
         }
-
         Metrics.choiceHistory += " // ARCHETYPE: " + title.innerText;
         dispatchDataTelemetry();
     }
@@ -782,16 +760,7 @@
         payload.append(TELEMETRY.fieldClout, Metrics.logicEmpathy.toString());
         payload.append(TELEMETRY.fieldIntegrity, Metrics.indivCollect.toString());
         payload.append(TELEMETRY.fieldChoices, Metrics.choiceHistory); 
-
-        fetch(TELEMETRY.formUrl, {
-            method: 'POST',
-            mode: 'no-cors',
-            body: payload
-        }).then(() => {
-            console.log("Telemetry matrix integrated successfully.");
-        }).catch(err => {
-            console.error("Telemetry data bypassed.", err);
-        });
+        fetch(TELEMETRY.formUrl, { method: 'POST', mode: 'no-cors', body: payload });
     }
 </script>
 </body>
