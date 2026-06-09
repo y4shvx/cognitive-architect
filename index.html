@@ -131,72 +131,115 @@
             }
         }
 
-        /* === MOBILE MEDIA OVERRIDE ENGINE (SCREENS <= 768px) === */
+        /* === ABSOLUTE MOBILE OVERRIDE ENGINE (SCREENS <= 768px) === */
         @media (max-width: 768px) {
             body {
-                align-items: flex-start;
-                padding: 0;
+                align-items: flex-start !important;
+                padding: 0 !important;
                 overflow-y: auto !important;
-            }
-            #console-container {
-                min-height: 100vh !important;
                 height: auto !important;
+                min-height: 100vh !important;
+            }
+            
+            /* Destroy the flex container containment */
+            #console-container {
+                display: block !important;
+                height: auto !important;
+                min-height: 100vh !important;
                 max-height: none !important;
                 border: none !important;
                 overflow: visible !important;
-                display: block !important; 
+                box-shadow: none !important;
             }
+
+            /* Stack all workspace blocks naturally down the document */
             #workspace {
-                display: flex !important;
-                flex-direction: column !important;
-                overflow: visible !important;
+                display: block !important;
                 height: auto !important;
+                min-height: 0 !important;
+                max-height: none !important;
+                overflow: visible !important;
             }
-            #diagnostic-monitor {
+
+            /* Top tracking header adjustments */
+            #system-header {
                 flex-direction: column !important;
-                gap: 10px !important;
+                align-items: flex-start !important;
+                gap: 6px !important;
                 padding: 12px 15px !important;
+            }
+            .sys-status {
+                align-self: flex-start !important;
+                font-size: 0.7rem !important;
+            }
+
+            /* Stack metrics sections */
+            #diagnostic-monitor {
+                display: block !important;
+                height: auto !important;
+                padding: 15px !important;
                 border-bottom: 1px solid rgba(0, 240, 255, 0.15) !important;
                 border-right: none !important;
             }
             .monitor-pane {
-                flex: 1 !important;
-                padding: 10px !important;
+                display: block !important;
+                margin-bottom: 12px !important;
+                padding: 12px !important;
             }
+            .monitor-pane:last-child {
+                margin-bottom: 0 !important;
+            }
+
+            /* Force viewport main to yield structural control */
             #viewport-main {
-                display: flex !important;
-                flex-direction: column !important;
-                overflow: visible !important;
+                display: block !important;
                 height: auto !important;
+                min-height: 0 !important;
+                max-height: none !important;
+                overflow: visible !important;
+                background: transparent !important;
             }
+
+            /* Give narrative container freedom to grow infinitely with text sizes */
             #narrative-display {
-                overflow: visible !important;
+                display: block !important;
                 height: auto !important;
-                flex-grow: 0 !important;
-                padding: 20px 15px !important;
+                min-height: 0 !important;
+                max-height: none !important;
+                overflow: visible !important;
+                padding: 25px 15px !important;
             }
+
+            /* Buttons section formatting */
             #action-grid {
+                display: block !important;
+                height: auto !important;
+                min-height: 0 !important;
+                max-height: none !important;
                 overflow: visible !important;
-                height: auto !important;
-                padding: 10px 15px 40px 15px !important;
-                margin-bottom: 0; 
+                padding: 0 15px 50px 15px !important; /* Huge bottom padding to guarantee visibility */
+                background: transparent !important;
+                border-top: none !important;
             }
-            #system-header {
-                flex-direction: column;
-                align-items: flex-start !important;
-                gap: 4px;
-                padding: 10px 15px !important;
+            .action-button {
+                display: block !important;
+                margin-bottom: 12px !important;
+                padding: 16px !important;
             }
-            .sys-status {
-                align-self: flex-end;
-                font-size: 0.7rem;
-            }
+            
+            /* Profile results screen adjustments */
             #profile-dashboard {
+                display: none; /* Controlled dynamically by JS */
                 height: auto !important;
-                overflow-y: visible !important;
+                min-height: 100vh !important;
+                overflow: visible !important;
+                padding: 30px 15px !important;
             }
             .results-matrix {
-                grid-template-columns: 1fr !important;
+                display: block !important;
+            }
+            .matrix-box {
+                margin-bottom: 15px !important;
             }
         }
 
@@ -768,7 +811,7 @@
         if (Metrics.indivCollect < 45) {
             metricIC.innerText = `Scored ${100 - Metrics.indivCollect}% Individualism. Your paths heavily focused on empowering personal freedom, keeping unique creative sparks, and independent survival.`;
         } else if (Metrics.indivCollect > 55) {
-            metricIC.innerText = `Scored ${Metrics.indivCollect}% Collectivism. You repeatedly chose choices that protected overall societal groups, structural harmony, and broad community frameworks.`;
+            metricIC.innerText = `Scored ${Metrics.indivCollect}% Collectivism. You repeatedly chose choices that prioritized overall societal groups, structural harmony, and broad community frameworks.`;
         } else {
             metricIC.innerText = "Balanced social footprint. You weighted individual accountability and collective harmony down the center line.";
         }
