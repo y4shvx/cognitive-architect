@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>NEURAL_ARCHITECT_v2.06</title>
+    <title>NEURAL_ARCHITECT_v2.08</title>
     <style>
         /* === ARCHITECT CORE CINEMATIC STYLING === */
         :root {
@@ -29,11 +29,11 @@
             background-color: var(--bg-dark);
             color: #d1d9e6;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
+            overflow-x: hidden;
             background-image: 
                 radial-gradient(rgba(0, 240, 255, 0.05) 1px, transparent 0),
                 radial-gradient(rgba(0, 240, 255, 0.02) 2px, transparent 0);
@@ -67,7 +67,16 @@
             backdrop-filter: blur(8px);
         }
 
-        @media (min-width: 768px) {
+        @media (max-width: 768px) {
+            #console-container {
+                height: 100vh;
+                max-height: none;
+                border: none;
+                overflow-y: auto;
+            }
+        }
+
+        @media (min-width: 769px) {
             #console-container {
                 width: 95vw;
                 height: 90vh;
@@ -115,7 +124,13 @@
             overflow: hidden;
             flex-direction: column; 
         }
-        @media (min-width: 768px) {
+        @media (max-width: 768px) {
+            #workspace {
+                overflow-y: auto;
+                flex-grow: 1;
+            }
+        }
+        @media (min-width: 769px) {
             #workspace { flex-direction: row; }
         }
 
@@ -129,7 +144,7 @@
             border-bottom: 1px solid rgba(0, 240, 255, 0.15);
             flex-shrink: 0;
         }
-        @media (min-width: 768px) {
+        @media (min-width: 769px) {
             #diagnostic-monitor {
                 width: 280px;
                 flex-direction: column;
@@ -147,7 +162,7 @@
             padding: 10px;
             border-radius: 8px;
         }
-        @media (min-width: 768px) { .monitor-pane { flex: none; padding: 15px; } }
+        @media (min-width: 769px) { .monitor-pane { flex: none; padding: 15px; } }
         .pane-title { font-size: 0.65rem; color: #62697a; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 1px; }
 
         .profile-bar-wrapper { margin-bottom: 10px; }
@@ -165,6 +180,12 @@
             background: rgba(0, 0, 0, 0.2);
             overflow: hidden;
         }
+        @media (max-width: 768px) {
+            #viewport-main {
+                overflow: visible;
+                flex-shrink: 0;
+            }
+        }
 
         #narrative-display {
             flex-grow: 1;
@@ -174,7 +195,13 @@
             flex-direction: column;
             justify-content: center;
         }
-        @media (min-width: 768px) { #narrative-display { padding: 40px; } }
+        @media (max-width: 768px) {
+            #narrative-display {
+                overflow-y: visible;
+                padding: 20px 15px;
+            }
+        }
+        @media (min-width: 769px) { #narrative-display { padding: 40px; } }
 
         #stage-banner {
             font-family: var(--font-mono);
@@ -191,9 +218,14 @@
             color: #f1f3f5;
             margin-bottom: 10px;
             white-space: normal;
+            
+            /* Strict Native Full-Word Wrapping Patches */
             word-wrap: break-word;
+            overflow-wrap: break-word;
+            word-break: normal;
+            hyphens: none;
         }
-        @media (min-width: 768px) { #story-text { font-size: 1.25rem; margin-bottom: 0; } }
+        @media (min-width: 769px) { #story-text { font-size: 1.25rem; margin-bottom: 0; } }
 
         #action-grid {
             padding: 15px 20px;
@@ -204,7 +236,13 @@
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             flex-shrink: 0;
         }
-        @media (min-width: 768px) { #action-grid { padding: 25px 40px; gap: 12px; } }
+        @media (max-width: 768px) {
+            #action-grid {
+                padding: 15px;
+                background: rgba(0, 0, 0, 0.6);
+            }
+        }
+        @media (min-width: 769px) { #action-grid { padding: 25px 40px; gap: 12px; } }
 
         .action-button {
             background: rgba(0, 240, 255, 0.03);
@@ -217,6 +255,12 @@
             cursor: pointer;
             transition: all 0.2s ease;
             width: 100%;
+            
+            /* Clean Action Selection Text Box Boundaries */
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            word-break: normal;
+            hyphens: none;
         }
         .action-button:hover, .action-button:active {
             background: rgba(0, 240, 255, 0.08);
@@ -234,7 +278,7 @@
             background: rgba(0, 255, 170, 0.15);
             box-shadow: 0 0 10px rgba(0, 255, 170, 0.2);
         }
-        @media (min-width: 768px) { 
+        @media (min-width: 769px) { 
             .action-button { padding: 18px 24px; font-size: 1rem; }
             .action-button:hover { transform: translateX(4px); }
             .action-button.continue-btn:hover { transform: none; }
@@ -251,6 +295,7 @@
             align-items: center;
             padding: 20px;
             text-align: center;
+            overflow-y: auto;
         }
         .intro-tag { font-family: var(--font-mono); color: var(--neon-blue); font-size: 0.8rem; letter-spacing: 3px; margin-bottom: 10px; }
         .intro-title { font-size: 2rem; font-weight: 900; color: #fff; margin-bottom: 20px; text-shadow: 0 0 15px rgba(0,240,255,0.2); }
@@ -265,10 +310,10 @@
             color: #a2a8b6;
             margin-bottom: 30px;
             text-align: left;
-            overflow-y: auto;
-            max-height: 50vh;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            word-break: normal;
         }
-        .intro-box p { margin-bottom: 12px; }
 
         /* === POST GAME REPORT DIAGNOSTICS OVERLAY === */
         #profile-dashboard {
@@ -282,9 +327,15 @@
             width: 100%;
             overflow-y: auto;
         }
+        @media (max-width: 768px) {
+            #profile-dashboard {
+                padding: 15px;
+                flex-shrink: 0;
+            }
+        }
         .report-header { font-family: var(--font-mono); color: var(--neon-amber); letter-spacing: 3px; font-size: 0.8rem; margin-bottom: 5px; text-align: center;}
-        .report-title { font-size: 1.6rem; font-weight: 900; color: #fff; margin-bottom: 15px; text-align: center; }
-        @media (min-width: 768px) { .report-title { font-size: 2.2rem; } }
+        .report-title { font-size: 1.6rem; font-weight: 900; color: #fff; margin-bottom: 15px; text-align: center; word-break: normal; }
+        @media (min-width: 769px) { .report-title { font-size: 2.2rem; } }
         
         .results-matrix {
             display: grid;
@@ -294,7 +345,7 @@
             max-width: 750px;
             margin-bottom: 25px;
         }
-        @media (min-width: 768px) { .results-matrix { grid-template-columns: 1fr 1fr; } }
+        @media (min-width: 769px) { .results-matrix { grid-template-columns: 1fr 1fr; } }
 
         .matrix-box {
             background: rgba(255, 255, 255, 0.02);
@@ -303,7 +354,7 @@
             padding: 15px;
         }
         .matrix-box h4 { font-family: var(--font-mono); font-size: 0.85rem; color: var(--neon-blue); margin-bottom: 8px; text-transform: uppercase; }
-        .matrix-box p { font-size: 0.9rem; line-height: 1.4; color: #a2a8b6; }
+        .matrix-box p { font-size: 0.9rem; line-height: 1.4; color: #a2a8b6; word-break: normal; }
 
         .eval-summary-card {
             width: 100%;
@@ -315,7 +366,7 @@
             margin-bottom: 25px;
         }
         .eval-summary-card h3 { font-size: 1.1rem; color: #fff; margin-bottom: 10px; font-family: var(--font-mono); text-transform: uppercase; text-shadow: 0 0 10px rgba(0,240,255,0.2); }
-        .eval-summary-card p { font-size: 0.95rem; line-height: 1.5; color: #d1d9e6; }
+        .eval-summary-card p { font-size: 0.95rem; line-height: 1.5; color: #d1d9e6; word-break: normal; }
 
         .dashboard-btn {
             display: inline-block;
@@ -342,7 +393,7 @@
         <span class="intro-tag">// OVERVIEW_INITIATIVE</span>
         <h1 class="intro-title">COGNITIVE ARCHITECT</h1>
         <div class="intro-box">
-            <p><strong>The Scenario:</strong> You are an "Architect"—a specialized near-future psychological counselor equipped to step directly inside the subconscious minds of patients trapped in traumatic catatonic states.</p>
+            <p><strong>The Scenario:</strong> You are an "Architect": a specialized near-future psychological counselor equipped to step directly inside the subconscious minds of patients trapped in traumatic catatonic states.</p>
             <p><strong>Your Mission:</strong> To awaken the patient, you must travel through a shifting mindscape generated by their deep emotional conflicts and favorite classic literature motifs.</p>
             <p><strong>The Mechanics:</strong> Every judgment path shifts their internal alignment balances (Logic vs. Empathy and Individualism vs. Collectivism), leading to highly targeted divergent personality restoration endings.</p>
         </div>
@@ -350,7 +401,7 @@
     </div>
 
     <div id="system-header">
-        <div class="sys-title">// COGNITIVE_ARCHITECT_INTERFACE v2.06</div>
+        <div class="sys-title">// COGNITIVE_ARCHITECT_INTERFACE v2.08</div>
         <div class="sys-status">● NEURAL_LINK_STABLE</div>
     </div>
 
@@ -424,7 +475,7 @@
                 </div>
             </div>
 
-            <a href="https://forms.gle/FYVS6HWuWpBZnA3bA" id="feedback-anchor" target="_blank" class="dashboard-btn">EXPORT EVALUATION METRICS</a>
+            <a href="https://forms.google.com/YOUR_EXTERNAL_FEEDBACK_FORM_URL" id="feedback-anchor" target="_blank" class="dashboard-btn">EXPORT EVALUATION METRICS</a>
         </div>
     </div>
 </div>
@@ -439,7 +490,7 @@
         choiceHistory: ""
     };
 
-    /* AUTOMATIC CORRECTED INPUT CONFIGURATIONS */
+    /* AUTOMATIC TELEMETRY ENDPOINT SETS */
     const TELEMETRY = {
         formUrl: "https://docs.google.com/forms/d/e/1FAIpQLSdcjYwY1nJBTbAQRkizwAjxpbueoImRRQFNjrhrJ4hdXP0x0A/formResponse",
         fieldGender: "entry.1053724307", 
@@ -475,7 +526,7 @@
         "stage_1": {
             banner: "Stage 1: The Beautiful City",
             action: () => updateProgressTrack(1),
-            text: "The Greater Good — You arrive at the edge of the patient's mind. It looks like a pristine, beautiful utopian fantasy kingdom. However, you find out the simulation only stays peaceful because an innocent child avatar is locked in a dark, dirty cellar room. Do you free the child?",
+            text: "The Greater Good: You arrive at the edge of the patient's mind. It looks like a pristine, beautiful utopian fantasy kingdom. However, you find out the simulation only stays peaceful because an innocent child avatar is locked in a dark, dirty cellar room. Do you free the child?",
             choices: [
                 { text: "Free the child.", tracker: "S1_FreeChild", outcome: "You break the lock. The child runs out smiling, but the utopian city immediately cracks and collapses around you. Intense, raw emotions flood the landscape, making the environment wild but honest.", target: "stage_2", logicEmpathy: 20, indivCollect: -15 },
                 { text: "Leave the child locked up.", tracker: "S1_KeepLocked", outcome: "You walk past the cellar. The fantasy city remains perfectly calm, clean, and safe. Your route ahead is completely secure, though you feel a heavy sense of manufactured guilt.", target: "stage_2", logicEmpathy: -20, indivCollect: 15 }
@@ -485,7 +536,7 @@
         "stage_2": {
             banner: "Stage 2: Hidden Sparks",
             action: () => updateProgressTrack(2),
-            text: "Rebellion vs. Security — You find a group of rebel thoughts attempting to steal 'Fire'—repressed, painful memories holding the dark truth of the patient's past trauma. Authoritarian robotic 'Keepers' are protecting the vaults to keep things quiet. Who do you help?",
+            text: "Rebellion vs. Security: You find a group of rebel thoughts attempting to steal 'Fire': repressed, painful memories holding the dark truth of the patient's past trauma. Authoritarian robotic 'Keepers' are protecting the vaults to keep things quiet. Who do you help?",
             choices: [
                 { text: "Help the rebels steal the fire.", tracker: "S2_HelpRebels", outcome: "You distract the guards. The rebels smash open the vault! Terribly painful memories break loose, causing minor structural shockwaves across the map, but giving you direct access to the real truth.", target: "stage_3", logicEmpathy: 15, indivCollect: -20 },
                 { text: "Side with the mechanical Keepers.", tracker: "S2_HelpKeepers", outcome: "You help lock down the security perimeter. The rebels are defeated and the painful memories are sealed away deep underground. The environment is safe, but the hidden truth is buried deeper.", target: "stage_3", logicEmpathy: -15, indivCollect: 20 }
@@ -495,7 +546,7 @@
         "stage_3": {
             banner: "Stage 3: The Old Mistake",
             action: () => updateProgressTrack(3),
-            text: "Accountability — You run into a terrifying, raging monster. It is a living manifestation of a bad mistake the patient committed years ago. The creature is crying out in pain, smashing nearby memories because it feels rejected. What do you do?",
+            text: "Accountability: You run into a terrifying, raging monster. It is a living manifestation of a bad mistake the patient committed years ago. The creature is crying out in pain, smashing nearby memories because it feels rejected. What do you do?",
             choices: [
                 { text: "Destroy the monster entirely.", tracker: "S3_DeleteMonster", outcome: "You fire a deletion script and vaporize the beast. The shouting stops, and the immediate area goes perfectly quiet. The guilt is buried, though the core issue was ignored.", target: "stage_4", logicEmpathy: -20, indivCollect: -15 },
                 { text: "Force the patient's mind avatar to hug it.", tracker: "S3_HugMonster", outcome: "You guide the avatar to hug the beast. The monster screams in agony, melting into a heavy puddle of tears that floods your dashboard. It hurts terribly, but the old guilt is finally integrated.", target: "stage_4", logicEmpathy: 20, indivCollect: 15 }
@@ -505,7 +556,7 @@
         "stage_4": {
             banner: "Stage 4: The Shortcut",
             action: () => updateProgressTrack(4),
-            text: "Ambition vs. Integrity — A smooth-talking shadow salesman offers you a secret cheat code. It will make the remaining trip to waking up the patient completely safe, but it demands deleting a friendly companion sprite who represents the patient's creative artistic spark. Do you take it?",
+            text: "Ambition vs. Integrity: A smooth-talking shadow salesman offers you a secret cheat code. It will make the remaining trip to waking up the patient completely safe, but it demands deleting a friendly companion sprite who represents the patient's creative artistic spark. Do you take it?",
             choices: [
                 { text: "Accept the bargain.", tracker: "S4_TakeDeal", outcome: "You input the cheat code. The companion sprite vanishes into pixels with a sad beep. Instantly, the road ahead becomes straight and flat, though the colorful landscape turns a dull, flat gray.", target: "stage_5", logicEmpathy: -25, indivCollect: 15 },
                 { text: "Reject the offer.", tracker: "S4_RefuseDeal", outcome: "You protect the companion sprite. The salesman snarls and vanishes, triggering volcanic instability in the distance. The journey ahead will be highly volatile, but the patient's creative spark stays alive.", target: "stage_5", logicEmpathy: 25, indivCollect: -15 }
@@ -515,7 +566,7 @@
         "stage_5": {
             banner: "Stage 5: Subconscious Trial",
             action: () => updateProgressTrack(5),
-            text: "Justice vs. Mercy — You witness a trial inside the patient's mind. The person on trial is an avatar of someone who deeply hurt the patient in real life. The local thoughts are aggressively shouting, demanding a brutal execution. How do you rule?",
+            text: "Justice vs. Mercy: You witness a trial inside the patient's mind. The person on trial is an avatar of someone who deeply hurt the patient in real life. The local thoughts are aggressively shouting, demanding a brutal execution. How do you rule?",
             choices: [
                 { text: "Allow the execution to happen.", tracker: "S5_Execute", outcome: "The execution runs. The angry crowd cheers wildly, and the patient's profile registers a massive surge of defensive confidence and anger. Justice was served coldly, but the air feels bitter.", target: "stage_6", logicEmpathy: -15, indivCollect: -20 },
                 { text: "Pardon them and order exile instead.", tracker: "S5_Pardon", outcome: "You overrule the crowd and banish the avatar away into the fog. The thoughts hiss in disappointment. The anger remains unvented, but a soft, calming sense of long-term mercy begins to take root.", target: "stage_6", logicEmpathy: 20, indivCollect: 20 }
@@ -525,7 +576,7 @@
         "stage_6": {
             banner: "Stage 6: The Portrait",
             action: () => updateProgressTrack(6),
-            text: "Superficial Harmony — You find a beautiful, flawless magical portrait of the patient. If you leave it alone, the patient's ego feels perfectly happy and safe. However, smashing the portrait will force them to view all of their actual real-world flaws. Do you smash it?",
+            text: "Superficial Harmony: You find a beautiful, flawless magical portrait of the patient. If you leave it alone, the patient's ego feels perfectly happy and safe. However, smashing the portrait will force them to view all of their actual real-world flaws. Do you smash it?",
             choices: [
                 { text: "Leave the portrait alone.", tracker: "S6_KeepPortrait", outcome: "You leave it hanging. The patient's ego-stability spikes nicely, wrapping them in a cozy layer of self-protection. They feel amazing, even if it is built on a pretty lie.", target: "stage_7", logicEmpathy: -20, indivCollect: 15 },
                 { text: "Smash the glass and frame.", tracker: "S6_SmashPortrait", outcome: "You shatter the portrait! The beautiful illusion falls apart, exposing raw, messy truths. The patient's system registers a brief emotional breakdown, but they are finally looking at reality.", target: "stage_7", logicEmpathy: 25, indivCollect: -25 }
@@ -535,7 +586,7 @@
         "stage_7": {
             banner: "Stage 7: The Future Warning",
             action: () => updateProgressTrack(7),
-            text: "The Burden of Truth — You locate a database revealing a harsh truth: when the patient wakes up, they will instantly face major, unavoidable problems in the real world. Telling them right now might terrify them enough to stay in a coma forever. Do you tell them?",
+            text: "The Burden of Truth: You locate a database revealing a harsh truth: when the patient wakes up, they will instantly face major, unavoidable problems in the real world. Telling them right now might terrify them enough to stay in a coma forever. Do you tell them?",
             choices: [
                 { text: "Lie and tell them everything will be fine.", tracker: "S7_Lie", outcome: "You tell a comforting lie. The patient relaxes, feeling incredibly peaceful and safe. This gives them the immediate confidence boost needed to approach the awakening gate easily.", target: "stage_8", logicEmpathy: -15, indivCollect: 25 },
                 { text: "Tell them the brutal truth right now.", tracker: "S7_Truth", outcome: "You break the news honestly. The core mind registers severe panic, and the terminal flashes warning signs. The environment is shaking, but they are preparing to face reality without armor.", target: "stage_8", logicEmpathy: 20, indivCollect: -20 }
@@ -545,7 +596,7 @@
         "stage_8": {
             banner: "Stage 8: Facing the Shadow",
             action: () => updateProgressTrack(8),
-            text: "The Jungian Shadow — You reach the deepest core room. The ultimate gatekeeper blocking the exit is the patient's Shadow—a mirror copy representing all the parts of themselves they hate and fear the most. The mindscape is crashing down. What is your final action?",
+            text: "The Jungian Shadow: You reach the deepest core room. The ultimate gatekeeper blocking the exit is the patient's Shadow: a mirror copy representing all the parts of themselves they hate and fear the most. The mindscape is crashing down. What is your final action?",
             choices: [
                 { text: "Banish the Shadow into the dark abyss.", tracker: "S8_BanishShadow", outcome: "You blast the Shadow away into the dark. The exit gate snaps wide open. The patient wakes up smoothly, returning to normal life, though a small part of their soul feels hollow and left behind.", target: "profile_build", logicEmpathy: -20, indivCollect: -20 },
                 { text: "Force the patient to absorb and integrate it.", tracker: "S8_MergeShadow", outcome: "You force them to merge together. The mindscape collapses in a blinding flash of light. The patient wakes up carrying heavy emotional scars, but they are completely whole and unified.", target: "profile_build", logicEmpathy: 25, indivCollect: 25 }
@@ -609,8 +660,7 @@
         ui.story.innerHTML = '';
         function loop() {
             if (i < txt.length) {
-                let char = txt.charAt(i);
-                ui.story.innerHTML += (char === " ") ? "&nbsp;" : char;
+                ui.story.innerHTML += txt.charAt(i);
                 i++;
                 setTimeout(loop, 4); 
             } else if (callback) {
